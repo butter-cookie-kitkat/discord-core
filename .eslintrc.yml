@@ -1,0 +1,57 @@
+extends:
+  - eslint:recommended
+env:
+  node: true
+  es6: true
+parser: babel-eslint
+parserOptions:
+  ecmaVersion: 2018
+  sourceType: module
+plugins:
+  - jsdoc
+rules:
+  indent:
+    - error
+    - 2
+    - SwitchCase: 1
+      ignoredNodes:
+        - TemplateLiteral *
+  comma-dangle:
+    - error
+    - arrays: always-multiline
+      objects: always-multiline
+      imports: always-multiline
+      exports: always-multiline
+      functions: always-multiline
+  no-unused-vars: 0
+  jsdoc/check-alignment: 1
+  jsdoc/check-param-names: 1
+  jsdoc/check-tag-names: 1
+  jsdoc/check-types: 1
+  jsdoc/implements-on-classes: 1
+  jsdoc/newline-after-description: 1
+  jsdoc/no-undefined-types: 1
+  jsdoc/require-jsdoc: 1
+  jsdoc/require-param: 1
+  jsdoc/require-param-description: 1
+  jsdoc/require-param-name: 1
+  jsdoc/require-param-type: 1
+  jsdoc/require-returns: 1
+  jsdoc/require-returns-check: 1
+  jsdoc/require-returns-description: 1
+  jsdoc/require-returns-type: 1
+  jsdoc/valid-types: 1
+overrides:
+  - files:
+    - '**/test/*.spec.js'
+    env:
+      mocha: true
+settings:
+  polyfills:
+    - URL
+    - fetch
+    - Promise
+    - Request
+  jsdoc:
+    preferredTypes:
+      object: Object
