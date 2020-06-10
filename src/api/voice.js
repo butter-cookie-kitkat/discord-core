@@ -132,6 +132,14 @@ export class Voice extends ApiBase {
     }
   }
 
+  get elapsed() {
+    if (this.isPlaying) {
+      return this.#connection.dispatcher.streamTime;
+    }
+
+    return null;
+  }
+
   get members() {
     return this.#channel.members;
   }
