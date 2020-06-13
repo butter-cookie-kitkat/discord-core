@@ -37,14 +37,14 @@ export class Normalize {
   static pattern(format) {
     const names = [];
 
-    const regex = new RegExp(`^${Escape.regex(format).replace(/<([^<>]+)>/g, (_, name) => {
+    const regex = new RegExp(`^${format.replace(/<([^<>]+)>/g, (_, name) => {
       const rest = name.startsWith('...');
       names.push({
         name: rest ? name.replace(/^[.]{3}/, '') : name,
         rest,
       });
 
-      return '([^\\s]+)';
+      return rest ? '(.+)' : '([^\\s]+)';
     })}`, 'i');
 
     return {

@@ -141,14 +141,10 @@ export class Command {
       let value;
       if (positionalIndex === -1) {
         value = args[name];
+      } else if (pattern.names[positionalIndex].rest) {
+        value = groups.slice(positionalIndex).join(' ');
       } else {
-        const { rest } = pattern.names[positionalIndex];
-
-        if (rest) {
-          value = groups.slice(positionalIndex).join(' ');
-        } else {
-          value = groups[positionalIndex];
-        }
+        value = groups[positionalIndex];
       }
 
       output[name] = this.#coerce(arg.type, value || arg.default || null);
