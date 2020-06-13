@@ -106,7 +106,7 @@ export class DiscordBot extends EventEmitter {
       };
 
       this.emit('command:before', info);
-      await reactor.loading(command.exec(info));
+      await reactor.loading(info.message, command.exec(info));
       this.emit('command:after', info);
     } catch (error) {
       if (this.listenerCount('error') > 0) {
