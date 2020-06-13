@@ -6,7 +6,7 @@ import { Arrays } from '../utils/arrays';
 /**
  * Adds the help command.
  *
- * @param {import('../index').DiscordBot} bot - the discord bot.
+ * @param {import('../bot').DiscordBot} bot - the discord bot.
  */
 export function help(bot) {
   bot.command([
