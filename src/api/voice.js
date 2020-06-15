@@ -1,4 +1,5 @@
 import path from 'path';
+import fs from 'fs';
 // eslint-disable-next-line no-unused-vars
 import DiscordJS from 'discord.js';
 import ytdl from 'ytdl-core-discord';
@@ -93,12 +94,20 @@ export class Voice extends ApiBase {
         highWaterMark: 1<<25,
       }), { type: 'opus' });
     } else {
-      const TYPE = TYPES[path.extname(uri)] || 'unknown';
+      const extension = path.extname(uri).replace(/^\./, '');
 
-      this.#connection.play(uri, {
-        volume: false,
-        type: TYPE,
-      });
+      if (['webm', 'ogg'].includes(extension)) {
+        const TYPE = TYPES[extension];
+
+        this.#connection.play(fs.createReadStream(uri), {
+          volume: false,
+          type: TYPE,
+        });
+      } else {
+        this.#connection.play(uri, {
+          volume: false,
+        });
+      }
     }
 
     return new Promise((resolve, reject) => {
