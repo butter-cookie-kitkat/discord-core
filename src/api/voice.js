@@ -140,6 +140,10 @@ export class Voice extends ApiBase {
     return null;
   }
 
+  get channel() {
+    return this.isConnected ? this.#channel.name : null;
+  }
+
   get members() {
     return this.#channel.members;
   }
