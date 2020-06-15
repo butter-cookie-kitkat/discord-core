@@ -145,7 +145,7 @@ export class Voice extends ApiBase {
   }
 
   get members() {
-    return this.#channel.members;
+    return this.isConnected ? this.#channel.members : [];
   }
 
   get isConnected() {
