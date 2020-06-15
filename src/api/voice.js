@@ -1,3 +1,4 @@
+import path from 'path';
 // eslint-disable-next-line no-unused-vars
 import DiscordJS from 'discord.js';
 import ytdl from 'ytdl-core-discord';
@@ -5,6 +6,11 @@ import ytdl from 'ytdl-core-discord';
 import { ApiBase } from './base';
 
 import { YOUTUBE } from '../constants/regex';
+
+const TYPES = {
+  'webm': 'webm/opus',
+  'ogg': 'ogg/opus',
+};
 
 export class Voice extends ApiBase {
   /**
@@ -87,8 +93,11 @@ export class Voice extends ApiBase {
         highWaterMark: 1<<25,
       }), { type: 'opus' });
     } else {
+      const TYPE = TYPES[path.extname(uri)] || 'unknown';
+
       this.#connection.play(uri, {
         volume: false,
+        type: TYPE,
       });
     }
 

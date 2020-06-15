@@ -28,6 +28,12 @@ bot.command('ping', async ({ message }) => {
 });
 ```
 
+### Caveats
+
+In order to use `.mp3` files you need to provide the ffmpeg binaries.
+
+This can be done fairly easily by adding `ffmpeg-static` to your dependencies.
+
 #### Testing Locally
 
 - Just install the dependencies via `npm i`.
