@@ -1,15 +1,29 @@
+
+parser: '@typescript-eslint/parser'
+plugins:
+  - '@typescript-eslint/eslint-plugin'
+  - eslint-plugin-tsdoc
 extends:
-  - eslint:recommended
-env:
-  node: true
-  es6: true
-parser: babel-eslint
+  - plugin:@typescript-eslint/recommended
 parserOptions:
   ecmaVersion: 2018
   sourceType: module
-plugins:
-  - jsdoc
 rules:
+  '@typescript-eslint/explicit-function-return-type': off
+  '@typescript-eslint/indent':
+    - error
+    - 2
+    - SwitchCase: 1
+      ignoredNodes:
+        - TemplateLiteral *
+  '@typescript-eslint/interface-name-prefix': off
+  '@typescript-eslint/no-namespace':
+    - error
+    - allowDeclarations: true
+  '@typescript-eslint/camelcase': 0
+  '@typescript-eslint/no-var-requires': off
+  '@typescript-eslint/no-explicit-any': off
+  'tsdoc/syntax': 'error'
   indent:
     - error
     - 2
@@ -23,35 +37,8 @@ rules:
       imports: always-multiline
       exports: always-multiline
       functions: always-multiline
-  no-unused-vars: 0
-  jsdoc/check-alignment: 1
-  jsdoc/check-param-names: 1
-  jsdoc/check-tag-names: 1
-  jsdoc/check-types: 1
-  jsdoc/implements-on-classes: 1
-  jsdoc/newline-after-description: 1
-  jsdoc/no-undefined-types: 1
-  jsdoc/require-jsdoc: 1
-  jsdoc/require-param: 1
-  jsdoc/require-param-description: 1
-  jsdoc/require-param-name: 1
-  jsdoc/require-param-type: 1
-  jsdoc/require-returns: 1
-  jsdoc/require-returns-check: 1
-  jsdoc/require-returns-description: 1
-  jsdoc/require-returns-type: 1
-  jsdoc/valid-types: 1
 overrides:
   - files:
-    - '**/test/*.spec.js'
+    - '**/test/*.spec.ts'
     env:
       mocha: true
-settings:
-  polyfills:
-    - URL
-    - fetch
-    - Promise
-    - Request
-  jsdoc:
-    preferredTypes:
-      object: Object

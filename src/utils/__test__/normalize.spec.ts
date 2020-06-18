@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 
-import { chance } from '../../../test/chance';
+import { chance } from '../chance';
 
 import { Normalize } from '../normalize';
-import { Escape } from '../escape';
+import { Command } from '../../command';
 
 describe('Utils(Normalize)', () => {
   describe('func(pattern)', () => {
@@ -74,12 +74,14 @@ describe('Utils(Normalize)', () => {
         },
       };
 
-      expect(Normalize.help(options)).deep.equals({
+      expect(Normalize.help(options, [])).deep.equals({
         ...options,
         args: {
           name: {
+            name: 'name',
             description: options.args.name,
             type: 'string',
+            positional: false,
           },
         },
       });
@@ -92,13 +94,45 @@ describe('Utils(Normalize)', () => {
         group: chance.word(),
         args: {
           name: {
+            name: 'name',
             description: chance.word(),
-            type: chance.pickone(['string', 'boolean', 'number']),
+            type: chance.pickone(['string', 'boolean', 'number']) as Command.ArgumentTypeKeys,
+            positional: false,
           },
         },
       };
 
-      expect(Normalize.help(options)).deep.equals(options);
+      expect(Normalize.help(options, [])).deep.equals(options);
+    });
+
+    it('should support positionals', () => {
+      const options = {
+        name: chance.word(),
+        description: chance.word(),
+        group: chance.word(),
+        args: {
+          name: chance.word(),
+        },
+      };
+
+      expect(Normalize.help(options, [{
+        names: [{
+          name: 'name',
+          rest: true,
+        }],
+        regex: /^$/i,
+        original: '',
+      }])).deep.equals({
+        ...options,
+        args: {
+          name: {
+            name: 'name',
+            description: options.args.name,
+            type: 'string',
+            positional: true,
+          },
+        },
+      });
     });
   });
 });

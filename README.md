@@ -1,8 +1,8 @@
 **THIS LIBRARY IS CURRENTLY A WIP**
 
-![CI](https://github.com/butter-cookie-kitkat/kitkat-bot/workflows/CI/badge.svg)
+![CI](https://github.com/butter-cookie-kitkat/discord-core/workflows/CI/badge.svg)
 
-### Kitkat Bot Core
+### Discord Core
 
 #### Prerequisites
 
@@ -12,11 +12,11 @@
 
 ```sh
 # This package isn't deployed to npm yet.
-$ npm i -S git+https://git@github.com/butter-cookie-kitkat/kitkat-bot-core.git
+$ npm i -S git+https://git@github.com/butter-cookie-kitkat/discord-core.git
 ```
 
 ```js
-import { DiscordBot } from 'kitkat-bot-core';
+import { DiscordBot } from '@butter-cookie-kitkat/discord-core';
 
 const bot = new DiscordBot({
   token: '<your-discord-api-key-here>',
