@@ -1,6 +1,6 @@
-import { Escape } from "../utils/escape";
+import { Escape } from '../utils/escape';
 
-export const URL = (domain) => {
+export function URL(domain: string): RegExp {
   return new RegExp(`^(?:https?://)?(?:www\\.)?${Escape.regex(domain)}`, 'i');
 }
 

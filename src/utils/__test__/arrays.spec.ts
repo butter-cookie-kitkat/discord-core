@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { chance } from '../../../test/chance';
+import { chance } from '../chance';
 
 import { Arrays } from '../arrays';
 

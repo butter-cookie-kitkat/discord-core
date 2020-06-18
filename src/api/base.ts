@@ -1,16 +1,14 @@
 // eslint-disable-next-line no-unused-vars
-import DiscordJS from 'discord.js';
+import { Client } from 'discord.js';
 import EventEmitter from 'events';
 
 export class ApiBase extends EventEmitter {
   /**
-   * @type {DiscordJS.Client} the Discord.JS client.
-   *
-   * @protected
+   * The Discord.JS client.
    */
-  _client;
+  protected _client: Client;
 
-  constructor(client) {
+  constructor(client: Client) {
     super();
 
     this._client = client;
