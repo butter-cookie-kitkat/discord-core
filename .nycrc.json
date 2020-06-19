@@ -1,8 +1,9 @@
 {
-  "all": true,
-  "include": ["src/**/*.js"],
-  "exclude": ["src/**/test/*.js"],
-  "check-coverage": true,
+  "cache": false,
+  "extension": [".ts"],
+  "check-coverage": false,
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.spec.ts"],
   "branches": 100,
   "lines": 100,
   "functions": 100,
