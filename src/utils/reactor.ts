@@ -1,5 +1,5 @@
 import { Message, MessageReaction } from 'discord.js';
-import { chance } from './chance';
+import { random } from './random';
 
 export class Reactor {
   private reactions = {
@@ -76,7 +76,7 @@ export class Reactor {
    * @returns the reaction
    */
   failure(message: Message): Promise<MessageReaction> {
-    return message.react(chance.pickone(this.reactions.failure));
+    return message.react(random.pickone(this.reactions.failure));
   }
 
   /**
@@ -86,7 +86,7 @@ export class Reactor {
    * @returns the reaction
    */
   success(message: Message): Promise<MessageReaction> {
-    return message.react(chance.pickone(this.reactions.success));
+    return message.react(random.pickone(this.reactions.success));
   }
 
   /**
@@ -96,7 +96,7 @@ export class Reactor {
    * @returns the reaction
    */
   awaiting(message: Message): Promise<MessageReaction> {
-    return message.react(chance.pickone(this.reactions.awaiting));
+    return message.react(random.pickone(this.reactions.awaiting));
   }
 }
 

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { chance } from '../chance';
+import { chance } from '../../__test__/chance';
 
 import { Normalize } from '../normalize';
 import { Command } from '../../command';

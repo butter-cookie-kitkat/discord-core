@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { chance } from '../../utils/chance';
+import { chance } from '../../__test__/chance';
 
 import { URL, YOUTUBE } from '../regex';
 
