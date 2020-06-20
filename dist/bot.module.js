@@ -643,7 +643,7 @@ class Command {
     try {
       const _this = this;
 
-      return Promise.resolve(_this.config.listener(info)).then(function () {});
+      return Promise.resolve(Promise.resolve(_this.config.listener(info))).then(function () {});
     } catch (e) {
       return Promise.reject(e);
     }
@@ -8585,45 +8585,30 @@ class Reactor {
     try {
       const _this = this;
 
-      function _temp4(reaction) {
-        let _exit;
+      const reactionPromise = _this.awaiting(message);
 
-        let response;
-
-        const _temp3 = _finallyRethrows(function () {
-          return _catch(function () {
-            return Promise.resolve(promise).then(function (_promise) {
-              response = _promise;
-              return Promise.resolve(_this.success(message)).then(function () {});
-            });
-          }, function (error) {
-            return Promise.resolve(_this.failure(message)).then(function () {
-              throw error;
+      return Promise.resolve(_finallyRethrows(function () {
+        return _catch(function () {
+          return Promise.resolve(Promise.all([promise, reactionPromise])).then(function ([response]) {
+            return Promise.resolve(_this.success(message)).then(function () {
+              return response;
             });
           });
-        }, function (_wasThrown, _result) {
-          function _temp2() {
+        }, function (error) {
+          return Promise.resolve(_this.failure(message)).then(function () {
+            throw error;
+          });
+        });
+      }, function (_wasThrown, _result) {
+        return Promise.resolve(reactionPromise).then(function (reaction) {
+          return Promise.resolve(Promise.all(Array.from(reaction.users.cache.values()).filter(user => user.bot).map(({
+            id
+          }) => reaction.users.remove(id)))).then(function () {
             if (_wasThrown) throw _result;
             return _result;
-          }
-
-          const _temp = function () {
-            if (reaction) {
-              return Promise.resolve(Promise.all(Array.from(reaction.users.cache.values()).filter(user => user.bot).map(({
-                id
-              }) => reaction.users.remove(id)))).then(function () {});
-            }
-          }();
-
-          return _temp && _temp.then ? _temp.then(_temp2) : _temp2(_temp);
+          });
         });
-
-        return _temp3 && _temp3.then ? _temp3.then(function (_result) {
-          return _exit ? _result : response;
-        }) : _exit ? _temp3 : response;
-      }
-
-      return Promise.resolve(promise instanceof Promise ? Promise.resolve(promise instanceof Promise ? _this.awaiting(message) : null).then(_temp4) : _temp4(promise instanceof Promise ? _this.awaiting(message) : null));
+      }));
     } catch (e) {
       return Promise.reject(e);
     }

@@ -43,29 +43,30 @@ export class Reactor {
    * @returns the resolved promise.
    */
   async loading<T>(message: Message, promise: Promise<T>): Promise<T> {
-    const reaction = promise instanceof Promise ? await this.awaiting(message) : null;
-
-    let response;
+    const reactionPromise = this.awaiting(message);
 
     try {
-      response = await promise;
+      const [response] = await Promise.all([
+        promise,
+        reactionPromise,
+      ]);
 
       await this.success(message);
+
+      return response;
     } catch (error) {
       await this.failure(message);
 
       throw error;
     } finally {
-      if (reaction) {
-        await Promise.all(
-          Array.from(reaction.users.cache.values())
-            .filter((user) => user.bot)
-            .map(({ id }) => reaction.users.remove(id)),
-        );
-      }
-    }
+      const reaction = await reactionPromise;
 
-    return response;
+      await Promise.all(
+        Array.from(reaction.users.cache.values())
+          .filter((user) => user.bot)
+          .map(({ id }) => reaction.users.remove(id)),
+      );
+    }
   }
 
   /**
