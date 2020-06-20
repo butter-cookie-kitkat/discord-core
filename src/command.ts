@@ -169,7 +169,7 @@ export declare namespace Command {
     args: Arguments;
   }
 
-  export type Listener = (info: ListenerInfo) => void;
+  export type Listener = (info: ListenerInfo) => Promise<void>;
 
   type InputPattern = (string|Pattern);
   export type InputPatterns = (InputPattern|InputPattern[]);
