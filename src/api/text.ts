@@ -1,4 +1,4 @@
-import { TextChannel, MessageOptions } from 'discord.js';
+import { TextChannel, MessageOptions, MessageEmbed } from 'discord.js';
 
 import { ApiBase } from './base';
 
@@ -9,7 +9,7 @@ export class Text extends ApiBase {
    * @param channelID - the id of the text channel to message.
    * @param message - the message to send to the channel.
    */
-  async send(channelID: string, message: (string|MessageOptions)): Promise<void> {
+  async send(channelID: string, message: (string|MessageOptions|MessageEmbed)): Promise<void> {
     const channel = await this.channel(channelID);
 
     await channel.send(message);
