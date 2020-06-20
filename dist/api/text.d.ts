@@ -1,4 +1,4 @@
-import { TextChannel, MessageOptions } from 'discord.js';
+import { TextChannel, MessageOptions, MessageEmbed } from 'discord.js';
 import { ApiBase } from './base';
 export declare class Text extends ApiBase {
     /**
@@ -7,7 +7,7 @@ export declare class Text extends ApiBase {
      * @param channelID - the id of the text channel to message.
      * @param message - the message to send to the channel.
      */
-    send(channelID: string, message: (string | MessageOptions)): Promise<void>;
+    send(channelID: string, message: (string | MessageOptions | MessageEmbed)): Promise<void>;
     /**
      * Finds a text channel with the given id.
      *
