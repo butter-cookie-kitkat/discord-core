@@ -113,7 +113,7 @@ export class Voice extends ApiBase {
 
     return new Promise((resolve, reject) => {
       connection.dispatcher
-        .once('close', () => {
+        .once('finish', () => {
           this.emit('finish', { uri, interrupted: this.isPlaying });
         })
         .once('error', (error) => reject(error))
