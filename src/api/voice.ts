@@ -114,7 +114,18 @@ export class Voice extends ApiBase {
     return new Promise((resolve, reject) => {
       connection.dispatcher
         .once('finish', () => {
-          this.emit('finish', { uri, interrupted: this.isPlaying });
+          this.emit('finish', {
+            uri,
+            interrupted: false,
+            canceled: false,
+          });
+        })
+        .once('close', () => {
+          this.emit('finish', {
+            uri,
+            interrupted: this.isPlaying,
+            canceled: true,
+          });
         })
         .once('error', (error) => reject(error))
         .once('start', () => {
@@ -248,6 +259,12 @@ export interface Voice {
    * Fired when the bot finishes playing audio.
    */
   on(name: 'finish', listener: (event: Voice.AudioFinishedEvent) => void): this;
+
+  emit(name: 'member:join'): boolean;
+  emit(name: 'member:leave'): boolean;
+  emit(name: 'leave'): boolean;
+  emit(name: 'start', event: Voice.AudioEvent): boolean;
+  emit(name: 'finish', event: Voice.AudioFinishedEvent): boolean;
 }
 
 export declare namespace Voice {
@@ -260,8 +277,13 @@ export declare namespace Voice {
 
   export interface AudioFinishedEvent extends AudioEvent {
     /**
-     * Whether the audio was interrupted.
+     * Whether another audio stream was played in place of this audio.
      */
     interrupted: boolean;
+
+    /**
+     * Whether the audio was stopped.
+     */
+    canceled: boolean;
   }
 }
