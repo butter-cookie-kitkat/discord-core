@@ -1,6 +1,6 @@
 {
   "name": "@butter-cookie-kitkat/discord-core",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "description": "The bread and butter of kitkat-bot!",
   "source": "src/index.ts",
   "main": "dist/bot.js",
