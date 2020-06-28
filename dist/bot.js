@@ -243,7 +243,14 @@ class Voice extends ApiBase {
           connection.dispatcher.once('finish', () => {
             _this3.emit('finish', {
               uri,
-              interrupted: _this3.isPlaying
+              interrupted: false,
+              canceled: false
+            });
+          }).once('close', () => {
+            _this3.emit('finish', {
+              uri,
+              interrupted: _this3.isPlaying,
+              canceled: true
             });
           }).once('error', error => reject(error)).once('start', () => {
             _this3.emit('start', {

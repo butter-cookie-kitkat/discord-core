@@ -75,6 +75,11 @@ export interface Voice {
      * Fired when the bot finishes playing audio.
      */
     on(name: 'finish', listener: (event: Voice.AudioFinishedEvent) => void): this;
+    emit(name: 'member:join'): boolean;
+    emit(name: 'member:leave'): boolean;
+    emit(name: 'leave'): boolean;
+    emit(name: 'start', event: Voice.AudioEvent): boolean;
+    emit(name: 'finish', event: Voice.AudioFinishedEvent): boolean;
 }
 export declare namespace Voice {
     interface AudioEvent {
@@ -85,8 +90,12 @@ export declare namespace Voice {
     }
     interface AudioFinishedEvent extends AudioEvent {
         /**
-         * Whether the audio was interrupted.
+         * Whether another audio stream was played in place of this audio.
          */
         interrupted: boolean;
+        /**
+         * Whether the audio was stopped.
+         */
+        canceled: boolean;
     }
 }
