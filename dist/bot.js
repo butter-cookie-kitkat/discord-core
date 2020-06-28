@@ -240,7 +240,7 @@ class Voice extends ApiBase {
 
       function _temp2() {
         return new Promise((resolve, reject) => {
-          connection.dispatcher.once('close', () => {
+          connection.dispatcher.once('finish', () => {
             _this3.emit('finish', {
               uri,
               interrupted: _this3.isPlaying
